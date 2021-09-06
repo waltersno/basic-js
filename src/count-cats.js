@@ -14,7 +14,16 @@ import { NotImplementedError } from '../extensions/index.js';
  * ]) => 3`
  *
  */
-export default function countCats(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
+export default function countCats(matrix) {
+  let numberOfItem = 0;
+  matrix.forEach((item) => {
+    item.forEach(item => {
+      if (item === '^^') {
+        numberOfItem += 1;
+      }
+    })
+  });
+  return numberOfItem;
+  // throw new NotImplementedError('Not implemented');
   // remove line with error and write your code here
 }
