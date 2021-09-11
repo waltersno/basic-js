@@ -14,6 +14,7 @@ import { NotImplementedError } from '../extensions/index.js';
 export default function getSeason(date) {
   if (date === undefined) return 'Unable to determine the time of year!'
   if (!(date instanceof Date)) throw new Error('Invalid date!')
+
   if (date.hasOwnProperty('toString')) throw new Error('Invalid date!')
   let month = date.getMonth();
   if (month === 11 || month === 12 || month === 1) return 'winter'

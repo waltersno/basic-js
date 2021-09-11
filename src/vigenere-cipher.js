@@ -107,7 +107,7 @@ export default class VigenereCipheringMachine {
         specialCharacterCount++;
       }
     }
-    if (!this.redirect) return encryptedText.split('').reverse().join('').toUpperCase();
+    if (!this.redirect) return decryptedText.split('').reverse().join('').toUpperCase();
     return decryptedText.toUpperCase();
   }
   
