@@ -1,4 +1,4 @@
-import { NotImplementedError } from '../extensions/index.js';
+import { NotImplementedError } from "../extensions/index.js";
 
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
@@ -24,15 +24,49 @@ import { NotImplementedError } from '../extensions/index.js';
  * ]
  */
 
-export default function minesweeper (matrix) {
-  for (let index = 0; index < matrix.length; index++) {
-    let elem = matrix[index]
-    let count = 0;
-    for (let index2 = 0; index2 < elem.length; index2++) {
-      let secelem = elem[index2];
-      if (secelem) count ++
-      if (elem[index2 + 1]) count ++
-      if (elem[index2 - 1] === undefined ? elem[elem.length - 1] : false) count ++
-    }    
+export default function minesweeper(matrix) {
+  let newArr = [];
+  for (let i = 0; i < matrix.length; i++) {
+    newArr[i] = matrix[i].slice();
   }
+  matrix.forEach((item, index, arr) => {
+    item.forEach((innerItem, innerIndex, innerArr) => {
+      let count = 0;
+      
+      if (typeof innerArr[innerIndex + 1] === "boolean") {
+        if (innerArr[innerIndex + 1]) count++;
+      } 
+
+      if (typeof innerArr[innerIndex - 1] === "boolean") {
+        if (innerArr[innerIndex - 1]) count++;
+      } 
+
+      if (typeof arr[index - 1] !== "undefined") {
+        if (arr[index - 1][innerIndex]) count++;
+      } 
+      
+      if (typeof arr[index + 1] !== "undefined") {
+        if (arr[index + 1][innerIndex]) count++;
+      } 
+
+      if (typeof arr[index - 1] !== "undefined" && typeof arr[index - 1][innerIndex + 1] === "boolean") {
+        if (arr[index - 1][innerIndex + 1]) count++;
+      } 
+        
+       if (typeof arr[index - 1] !== "undefined" && typeof arr[index - 1][innerIndex - 1] === "boolean") {
+        if (arr[index - 1][innerIndex - 1]) count++;
+      } 
+
+        if (typeof arr[index + 1] !== "undefined" && typeof arr[index + 1][innerIndex + 1] === "boolean") {
+        if (arr[index + 1][innerIndex + 1]) count++;
+      } 
+
+      if (typeof arr[index + 1] !== "undefined" && typeof arr[index + 1][innerIndex - 1] === "boolean") {
+        if (arr[index + 1][innerIndex - 1]) count++;
+      } 
+
+      newArr[index][innerIndex] = count
+    });
+  });
+  return newArr;
 }
